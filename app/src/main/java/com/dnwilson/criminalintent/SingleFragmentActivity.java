@@ -10,6 +10,11 @@ import android.support.v7.app.AppCompatActivity;
  */
 public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
+
+    protected int getLayoutResId(){
+        return R.layout.activity_fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +24,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        setContentView(R.layout.activity_fragment);
+        setContentView(getLayoutResId());
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
         if (fragment == null) {
