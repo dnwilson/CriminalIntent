@@ -20,6 +20,7 @@ public class Crime {
     private static final String JSON_DATE = "date";
     private static final String JSON_TIME = "time";
     private static final String JSON_PHOTO = "photo";
+    private static final String JSON_SUSPECT = "suspect";
 
     private UUID mID;
     private String mTitle;
@@ -27,6 +28,7 @@ public class Crime {
     private Date mTime;
     private boolean mSolved;
     private Photo mPhoto;
+    private String mSuspect;
 
     public Crime(){
         mID = UUID.randomUUID();
@@ -42,6 +44,10 @@ public class Crime {
         mSolved = json.getBoolean(JSON_SOLVED);
         mDate = new Date(json.getLong(JSON_DATE));
         mTime = new Date(json.getLong(JSON_TIME));
+        if(json.has(JSON_PHOTO))
+            mPhoto = new Photo(json.getJSONObject(JSON_PHOTO));
+        if(json.has(JSON_SUSPECT))
+            mSuspect = json.getString(JSON_SUSPECT);
     }
 
     public JSONObject toJSON() throws JSONException{
@@ -53,6 +59,7 @@ public class Crime {
         json.put(JSON_TIME, mTime.getTime());
         if (mPhoto != null)
             json.put(JSON_PHOTO, mPhoto.toJSON());
+        json.put(JSON_SUSPECT, mSuspect);
         return json;
     }
 
@@ -102,6 +109,14 @@ public class Crime {
 
     public void setPhoto(Photo p) {
         this.mPhoto = p;
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        this.mSuspect = suspect;
     }
 
     @Override
